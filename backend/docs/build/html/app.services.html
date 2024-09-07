@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Services &#8212; Unilink Beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=c5864913"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Models" href="app.models.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="services">
+<h1>Services<a class="headerlink" href="#services" title="Link to this heading">¶</a></h1>
+<section id="module-app.services.ad_service">
+<span id="ad-services"></span><h2>Ad services<a class="headerlink" href="#module-app.services.ad_service" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.create_ad">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">create_ad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.create_ad" title="Link to this definition">¶</a></dt>
+<dd><p>Function to create a new advertisement based on the provided data and insert it into the database.</p>
+<p>Args:</p>
+<ul>
+<li><p><strong>data</strong> (dict): A dictionary containing the data for creating the advertisement.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>title</strong> (str): The title of the advertisement.</p></li>
+<li><p><strong>description</strong> (str): The description of the advertisement.</p></li>
+<li><p><strong>max_members</strong> (int): The maximum number of members allowed for the advertisement.</p></li>
+<li><p><strong>time</strong> (str): The time of the advertisement.</p></li>
+<li><p><strong>location</strong> (str): The location of the advertisement.</p></li>
+<li><p><strong>date</strong> (str): The date of the advertisement in ISO 8601 format (“%Y-%m-%dT%H:%M:%S.%fZ”).</p></li>
+<li><p><strong>subject</strong> (str): The subject of the advertisement.</p></li>
+<li><p><strong>adType</strong> (str): The type of the advertisement (e.g., “Ripetizioni”).</p></li>
+<li><p><strong>rate</strong> (float, optional): The rate for “Ripetizioni” type advertisements.</p></li>
+<li><p><strong>classroom</strong> (str): The classroom of the advertisement.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>user_email</strong> (str): The email of the user creating the advertisement.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.create_enrollment">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">create_enrollment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.create_enrollment" title="Link to this definition">¶</a></dt>
+<dd><p>Function to create an enrollment for a user to an advertisement.</p>
+<p>This function handles the process of enrolling a user in an advertisement,
+ensuring that the user is not already enrolled and is not the creator of the ad.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_email</strong> (<em>str</em>) – The email address of the user trying to enroll.</p></li>
+<li><p><strong>ad_id</strong> (<em>int</em>) – The unique identifier of the advertisement the user wants to enroll in.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>HTTP status code representing the result of the enrollment operation.</dt><dd><ul class="simple">
+<li><p>201: Successfully created the enrollment.</p></li>
+<li><p>409: Enrollment already exists.</p></li>
+<li><p>403: User trying to enroll is the creator of the ad.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.create_waitingUser">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">create_waitingUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.create_waitingUser" title="Link to this definition">¶</a></dt>
+<dd><p>Create a waiting list entry for a user for a specific ad.</p>
+<p>This function checks various conditions to ensure that the user can be added
+to the waiting list for the given ad. It returns appropriate status codes based
+on these conditions.</p>
+<p>Parameters:
+- user_email: The email of the user to be added to the waiting list.
+- ad_id: The unique identifier of the ad.</p>
+<p>Returns:
+- 409 if the user is already enrolled in the ad.
+- 403 if the user is the creator of the ad.
+- 404 if the user is already on the waiting list for the ad.
+- 201 if the user can be successfully added to the waiting list.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.delete_ad_and_notify">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">delete_ad_and_notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.delete_ad_and_notify" title="Link to this definition">¶</a></dt>
+<dd><p>Function to delete an advertisement and notify all related users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ad_id</strong> (<em>int</em>) – ID of the advertisement to be deleted.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the advertisement was successfully deleted and notifications were sent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>This function performs the following operations:
+1. Retrieves the advertisement using the provided ad_id. Returns False if not found.
+2. Gathers the email addresses of enrolled users and those on the waiting list.
+3. Deletes relationships in WaitingList, Enrollment, and Notification tables related to the ad.
+4. Creates a notification for each user informing them that the ad was deleted.
+5. Deletes the advertisement from the database and commits all changes.</p>
+<dl class="simple">
+<dt>Notification Details:</dt><dd><ul class="simple">
+<li><p>Message: “L’annuncio ‘{ad.title}’ è stato eliminato dall’autore.”</p></li>
+<li><p>Notification Type: ‘deleted-ad’</p></li>
+<li><p>Date Created: Current UTC datetime</p></li>
+</ul>
+</dd>
+</dl>
+<p>The notifications are created for each user who was either enrolled in the ad or on its waiting list.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.enrollStudent">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">enrollStudent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.enrollStudent" title="Link to this definition">¶</a></dt>
+<dd><p>Handle the enrollment of a user in an advertisement.</p>
+<p>This function processes the enrollment of a user (identified by their email) in a specified advertisement.
+It checks various conditions to ensure that the enrollment is valid and updates the database accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – The JSON payload from the request, expected to contain the advertisement ID.</p></li>
+<li><p><strong>user_email</strong> (<em>str</em>) – The email of the user attempting to enroll.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An HTTP status code indicating the result of the enrollment process.</dt><dd><ul class="simple">
+<li><p>409 if the user is already enrolled.</p></li>
+<li><p>403 if the user is the creator of the advertisement.</p></li>
+<li><p>201 if the enrollment is successful.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.find_enrollment">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">find_enrollment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.find_enrollment" title="Link to this definition">¶</a></dt>
+<dd><p>Finds an enrollment record based on the given student email and ad ID.</p>
+<p>This function queries the Enrollment table to find the specific enrollment
+that matches the provided student email and ad ID. If a matching enrollment
+is found, it returns the corresponding Enrollment object; otherwise, it
+returns None.</p>
+<p>Parameters:
+- user_email (str): The email of the student to find the enrollment for.
+- ad_id (int): The ID of the ad associated with the enrollment.</p>
+<p>Returns:
+- Enrollment: The enrollment object if found, otherwise None.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.get_ad">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">get_ad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allowed_types</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.get_ad" title="Link to this definition">¶</a></dt>
+<dd><p>Function to retrieve tutoring announcements based on allowed types; returns only future announcements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>allowed_types</strong> (<em>list</em>) – A list of allowed advertisement types.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A list of dictionaries containing information about the tutoring announcements.</dt><dd><dl class="simple">
+<dt>Each dictionary includes the following keys:</dt><dd><ul class="simple">
+<li><p><strong>id</strong> (int): The unique identifier of the announcement.</p></li>
+<li><p><strong>title</strong> (str): The title of the announcement.</p></li>
+<li><p><strong>description</strong> (str): The description of the announcement.</p></li>
+<li><p><strong>date</strong> (str): The date of the announcement in the format ‘YYYY-MM-DD’.</p></li>
+<li><p><strong>time</strong> (str): The time of the announcement in the format ‘HH:MM:SS’.</p></li>
+<li><p><strong>location</strong> (str): The location of the announcement.</p></li>
+<li><p><strong>classroom</strong> (str): The classroom for the announcement.</p></li>
+<li><p><strong>max_members</strong> (int): The maximum number of members allowed for the announcement.</p></li>
+<li><p><strong>actual_members</strong> (int): The actual number of members currently joined in the announcement.</p></li>
+<li><p><strong>rate</strong> (float): The rate of the announcement.</p></li>
+<li><p><strong>subject</strong> (str): The subject of the announcement.</p></li>
+<li><p><strong>ad_type</strong> (str): The type of the announcement.</p></li>
+<li><p><strong>student_email</strong> (str): The email of the student who published the announcement.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.get_my_ads">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">get_my_ads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allowed_types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.get_my_ads" title="Link to this definition">¶</a></dt>
+<dd><p>Function to retrieve announcements posted by the logged-in user based on allowed types; returns only future announcements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>allowed_types</strong> (<em>list</em>) – A list of allowed advertisement types.</p></li>
+<li><p><strong>user_email</strong> (<em>str</em>) – Email of the logged-in user.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of dictionaries containing information about the user’s announcements.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.get_my_waitingList">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">get_my_waitingList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">student</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.get_my_waitingList" title="Link to this definition">¶</a></dt>
+<dd><p>Function to retrieve ads to which the logged-in user is on the waiting list; returns only future announcements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>student</strong> (<em>str</em>) – Email of the student.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of dictionaries containing information about personal waitign list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>This function queries the database to retrieve ads to which the logged-in user is on the waiting list.
+It filters the waitingList based on the student’s email and retrieves corresponding announcements (ads)
+with dates on or after the current date. The retrieved announcements are then formatted into a list of dictionaries
+containing various details such as ID, title, description, date, time, location, maximum members, actual members,
+hourly rate, subject, ad type, and student’s email.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.get_notifications">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">get_notifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.get_notifications" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves notifications for a given user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_email</strong> (<em>str</em>) – Email of the user.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of dictionaries containing information about notifications.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>This function queries the database to retrieve notifications for the specified user.
+The notifications are returned in descending order by creation date to show the most recent first.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.get_personalMeeting">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">get_personalMeeting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">student</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.get_personalMeeting" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves personal meetings for a given student.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>student</strong> (<em>str</em>) – Email of the student.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of dictionaries containing information about personal meetings.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>This function queries the database to retrieve personal meetings (enrollments) for the specified student.
+It filters the enrollments based on the student’s email and retrieves corresponding announcements (ads)
+with dates on or after the current date. The retrieved announcements are then formatted into a list of dictionaries
+containing various details such as ID, title, description, date, time, location, maximum members, actual members,
+hourly rate, subject, ad type, and student’s email.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.unsubscribeStudent">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">unsubscribeStudent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.unsubscribeStudent" title="Link to this definition">¶</a></dt>
+<dd><p>Handle the unsubscription of a user from a specific advertisement.</p>
+<p>This function processes the unsubscription of a user (identified by their email) from a specified advertisement.
+It updates the advertisement’s member count, removes the user’s enrollment record, and handles the waiting list
+if there are users waiting for a spot. Notifications are sent to relevant parties about the changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – The JSON payload from the request, expected to contain the advertisement ID.</p></li>
+<li><p><strong>user_email</strong> (<em>str</em>) – The email of the user attempting to unsubscribe.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Notifications:</dt><dd><ul class="simple">
+<li><p>The ad author is notified about the user’s unsubscription.</p></li>
+<li><p>If a waiting list user is enrolled, they are notified about their new enrollment.</p></li>
+<li><p>The ad author is also notified about the new enrollment from the waiting list.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.ad_service.unsubscribeStudentWaitinglist">
+<span class="sig-prename descclassname"><span class="pre">app.services.ad_service.</span></span><span class="sig-name descname"><span class="pre">unsubscribeStudentWaitinglist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.ad_service.unsubscribeStudentWaitinglist" title="Link to this definition">¶</a></dt>
+<dd><p>Handle the unsubscription of a user from a specific advertisement.</p>
+<p>This function processes the unsubscription of a user (identified by their email) from a specified waiting list advertisement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – The JSON payload from the request, expected to contain the advertisement ID.</p></li>
+<li><p><strong>user_email</strong> (<em>str</em>) – The email of the user attempting to unsubscribe.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.services.user_service">
+<span id="user-services"></span><h2>User services<a class="headerlink" href="#module-app.services.user_service" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.user_service.authenticate_user">
+<span class="sig-prename descclassname"><span class="pre">app.services.user_service.</span></span><span class="sig-name descname"><span class="pre">authenticate_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.user_service.authenticate_user" title="Link to this definition">¶</a></dt>
+<dd><p>Function to authenticate a user based on email and password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> (<em>str</em>) – The email of the user.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password of the user.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if authentication is successful, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>bool</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.user_service.create_user">
+<span class="sig-prename descclassname"><span class="pre">app.services.user_service.</span></span><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.user_service.create_user" title="Link to this definition">¶</a></dt>
+<dd><p>Function to create a new user based on the provided data and insert it into the database.</p>
+<p>Args:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>data</strong> (dict): A dictionary containing the data for creating the user.</dt><dd><ul>
+<li><p><strong>email</strong> (str): The email of the user.</p></li>
+<li><p><strong>firstName</strong> (str): The first name of the user.</p></li>
+<li><p><strong>lastName</strong> (str): The last name of the user.</p></li>
+<li><p><strong>password</strong> (str): The password of the user.</p></li>
+<li><p><strong>phoneNumber</strong> (str): The phone number of the user.</p></li>
+<li><p><strong>birthdate</strong> (str): The birth date of the user in ISO 8601 format (“%Y-%m-%dT%H:%M:%S.%fZ”).</p></li>
+<li><p><strong>gender</strong> (str): The gender of the user.</p></li>
+<li><p><strong>courseType</strong> (str): The type of course the user is enrolled in.</p></li>
+<li><p><strong>subjectArea</strong> (str): The subject area of the user’s course.</p></li>
+<li><p><strong>courseYear</strong> (int): The year of course the user is in.</p></li>
+<li><p><strong>description</strong> (str): The description of the user.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.user_service.delete_user">
+<span class="sig-prename descclassname"><span class="pre">app.services.user_service.</span></span><span class="sig-name descname"><span class="pre">delete_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.user_service.delete_user" title="Link to this definition">¶</a></dt>
+<dd><p>Delete user and associated data.</p>
+<p>Deletes the user and all associated data including books, ads, notifications, and waiting list entries.
+Notifies other users about unsubscriptions and deletions.
+Removes the user from the session upon successful deletion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_email</strong> (<em>str</em>) – Email of the user to be deleted.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>HTTP status code indicating the success or failure of the deletion operation.</dt><dd><p>200 if successful, 404 if user not found.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.user_service.extract_user">
+<span class="sig-prename descclassname"><span class="pre">app.services.user_service.</span></span><span class="sig-name descname"><span class="pre">extract_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.user_service.extract_user" title="Link to this definition">¶</a></dt>
+<dd><p>Function to extract a user’s profile data from the database based on the user’s email.</p>
+<p>This function queries the database for a user with the specified email. If the user is found,
+it constructs a dictionary containing key profile details. If no user is found, it sets the profile data to 404,
+indicating that the user could not be located.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_email</strong> (<em>str</em>) – The email address of the user whose profile is to be retrieved.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A dictionary containing the user’s profile data if the user is found. If the user is not found,
+it returns 404 to indicate that no profile could be retrieved. The profile data dictionary includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>email</strong>: Email address of the user.</p></li>
+<li><p><strong>first_name</strong>: First name of the user.</p></li>
+<li><p><strong>last_name</strong>: Last name of the user.</p></li>
+<li><p><strong>password</strong>: Password of the user (note: handling or returning passwords in this manner is insecure).</p></li>
+<li><p><strong>phone_number</strong>: Phone number of the user.</p></li>
+<li><p><strong>birth_year</strong>: Birth year of the user.</p></li>
+<li><p><strong>gender</strong>: Gender of the user.</p></li>
+<li><p><strong>course_type</strong>: Type of course the user is enrolled in.</p></li>
+<li><p><strong>subject_area</strong>: Subject area of the user’s course.</p></li>
+<li><p><strong>course_year</strong>: Current year of the user in the course.</p></li>
+<li><p><strong>description</strong>: A description or additional information about the user.</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict or int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.services.book_service">
+<span id="book-services"></span><h2>Book services<a class="headerlink" href="#module-app.services.book_service" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.book_service.changeBookStatus">
+<span class="sig-prename descclassname"><span class="pre">app.services.book_service.</span></span><span class="sig-name descname"><span class="pre">changeBookStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.book_service.changeBookStatus" title="Link to this definition">¶</a></dt>
+<dd><p>Change the status of a book to sold.
+If a user had notified the author of the ad that he was interested in this book,
+a notification is created for the iterested user notifying him of the sale of the book</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.book_service.create_book">
+<span class="sig-prename descclassname"><span class="pre">app.services.book_service.</span></span><span class="sig-name descname"><span class="pre">create_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.book_service.create_book" title="Link to this definition">¶</a></dt>
+<dd><p>Function to create a new advertisement for selling a book based on the provided data and insert it into the database.</p>
+<p>Args:</p>
+<ul>
+<li><p><strong>data</strong> (dict): A dictionary containing the data for creating the book ad.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>title</strong> (str): The title of the book.</p></li>
+<li><p><strong>subject</strong> (str): The subject of the book.</p></li>
+<li><p><strong>price</strong> (float): The price of the book.</p></li>
+<li><p><strong>condition</strong> (str): The condition of the book.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>user_email</strong> (str): The email of the user creating the book ad.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.book_service.delete_book_and_notify">
+<span class="sig-prename descclassname"><span class="pre">app.services.book_service.</span></span><span class="sig-name descname"><span class="pre">delete_book_and_notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.book_service.delete_book_and_notify" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.book_service.get_bookShop">
+<span class="sig-prename descclassname"><span class="pre">app.services.book_service.</span></span><span class="sig-name descname"><span class="pre">get_bookShop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.book_service.get_bookShop" title="Link to this definition">¶</a></dt>
+<dd><p>Function to retrieve all  book shop announcements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A list of dictionaries containing information about the book shop announcements.</dt><dd><dl class="simple">
+<dt>Each dictionary includes the following keys:</dt><dd><ul class="simple">
+<li><p><strong>id</strong> (int): The unique identifier of the announcement.</p></li>
+<li><p><strong>title</strong> (str): The title of the announcement.</p></li>
+<li><p><strong>subject</strong> (str): The subject of the announcement.</p></li>
+<li><p><strong>price</strong> (float): The price of the book.</p></li>
+<li><p><strong>condition</strong> (str): The condition of the book.</p></li>
+<li><p><strong>student_email</strong> (str): The email of the student who published the announcement.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.book_service.get_mypersonalBook">
+<span class="sig-prename descclassname"><span class="pre">app.services.book_service.</span></span><span class="sig-name descname"><span class="pre">get_mypersonalBook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.book_service.get_mypersonalBook" title="Link to this definition">¶</a></dt>
+<dd><p>Function to retrieveall  listings of books sold or for sale from the logged-in user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A list of dictionaries containing information about the book shop announcements.</dt><dd><dl class="simple">
+<dt>Each dictionary includes the following keys:</dt><dd><ul class="simple">
+<li><p><strong>id</strong> (int): The unique identifier of the announcement.</p></li>
+<li><p><strong>title</strong> (str): The title of the announcement.</p></li>
+<li><p><strong>subject</strong> (str): The subject of the announcement.</p></li>
+<li><p><strong>price</strong> (float): The price of the book.</p></li>
+<li><p><strong>condition</strong> (str): The condition of the book.</p></li>
+<li><p><strong>student_email</strong> (str): The email of the student who published the announcement.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.services.book_service.notification_book">
+<span class="sig-prename descclassname"><span class="pre">app.services.book_service.</span></span><span class="sig-name descname"><span class="pre">notification_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.services.book_service.notification_book" title="Link to this definition">¶</a></dt>
+<dd><p>Create a notification related to a book when a user shows interest in it, this notification is sent to the author of the announcement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – Data related to the notification, containing the book ID.</p></li>
+<li><p><strong>user_email</strong> (<em>str</em>) – Email of the logged in user.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Unilink</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="app.controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.models.html">Models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-app.services.ad_service">Ad services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-app.services.user_service">User services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-app.services.book_service">Book services</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="app.models.html" title="previous chapter">Models</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Nada Mohamed & Alessia Rubini.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/app.services.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

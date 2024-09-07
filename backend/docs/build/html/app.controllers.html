@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Controllers &#8212; Unilink Beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=c5864913"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Models" href="app.models.html" />
+    <link rel="prev" title="Welcome to Unilink’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="controllers">
+<h1>Controllers<a class="headerlink" href="#controllers" title="Link to this heading">¶</a></h1>
+<section id="module-app.controllers.ad_controller">
+<span id="ad-controllers"></span><h2>Ad controllers<a class="headerlink" href="#module-app.controllers.ad_controller" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.delete_ad">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">delete_ad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.delete_ad" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to delete an announcement posted by the logged-in user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Success or error message if a problem was encountered when deleting the ad</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>json</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.delete_notification">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">delete_notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notification_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.delete_notification" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to delete a specific notification (either standard or generic).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>JSON response with a success message if the notification is deleted successfully and HTTP status code 200.</p></li>
+<li><p>JSON response with a message indicating notification not found and HTTP status code 404.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.enroll">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">enroll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.enroll" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to handle POST requests for enrolling a user in an advertisement.</p>
+<p>This function retrieves the user’s email from the session and extracts the advertisement ID
+from the JSON payload of the request. It then attempts to enroll the user in the specified
+advertisement by calling the <cite>enrollStudent</cite> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A JSON response and an HTTP status code.</dt><dd><ul class="simple">
+<li><p>If the user is already enrolled, returns a 409 status with an error message.</p></li>
+<li><p>If the user is the creator of the advertisement, returns a 403 status with an error message.</p></li>
+<li><p>If the enrollment is successful, returns a 201 status with a success message.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.get_personal_announcements">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">get_personal_announcements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.get_personal_announcements" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve personal announcements -tutoring, study group-</p>
+<p>Function used from services: get_my_ads()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of tutoring and study group announcements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.get_personal_waitingList">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">get_personal_waitingList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.get_personal_waitingList" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve ads to which the logged-in user is on the waiting list.</p>
+<p>Function used from services: get_my_waitingList()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of tutoring announcements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.get_study_group_announcements">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">get_study_group_announcements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.get_study_group_announcements" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve study group announcements.</p>
+<p>Function used from services: get_ad()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of study group announcements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.get_tutoring_announcements">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">get_tutoring_announcements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.get_tutoring_announcements" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve tutoring announcements.</p>
+<p>Function used from services: get_ad()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of tutoring announcements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.mark_notification_as_read">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">mark_notification_as_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notification_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.mark_notification_as_read" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to mark a specific notification (either standard or generic) as read.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>JSON response with a success message if the notification is marked as read successfully and HTTP status code 200.</p></li>
+<li><p>JSON response with a message indicating notification not found and HTTP status code 404.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.mark_notifications_as_read">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">mark_notifications_as_read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.mark_notifications_as_read" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to mark all unread notifications (both standard and generic) as read for the logged-in user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>JSON response with a success message if the notifications are marked as read successfully and HTTP status code 200.</p></li>
+<li><p>JSON response with an error message if the user is not authenticated and HTTP status code 401.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.new_ad">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">new_ad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.new_ad" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to create a new advertisement -tutoring and study group-</p>
+<p>Function used from services: create_ad()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing a JSON response with a success message and the HTTP status code 201.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.notifications">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">notifications</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.notifications" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve notifications for the logged-in user.</p>
+<p>Function used from services: get_notifications()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>JSON response containing a list of notifications and HTTP status code 200.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.personal_meeting">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">personal_meeting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.personal_meeting" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve ads to which the logged-in user is subscribed</p>
+<p>Function used from services: get_personalMeeting()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of announcements to which the user is subscribed.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.unread_notifications_count">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">unread_notifications_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.unread_notifications_count" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to get the count of unread notifications (both standard and generic) for the logged-in user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>JSON response containing the count of unread notifications and HTTP status code 200.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.unsubscribe">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.unsubscribe" title="Link to this definition">¶</a></dt>
+<dd><p>Unsubscribe the currently logged-in user from a specific ad.</p>
+<p>This endpoint retrieves the user’s email from the session and the advertisement ID from the
+request JSON payload, then calls the <cite>unsubscribeStudent</cite> function to handle the unsubscription process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing a JSON response with a success message and the HTTP status code 201.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.unsubscribe_from_waitinglist">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">unsubscribe_from_waitinglist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.unsubscribe_from_waitinglist" title="Link to this definition">¶</a></dt>
+<dd><p>Unsubscribe the currently logged-in user from a specific ad.</p>
+<p>This endpoint retrieves the user’s email from the session and the advertisement ID from the
+request JSON payload, then calls the <cite>unsubscribeStudent</cite> function to handle the unsubscription process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A JSON response and an HTTP status code.</dt><dd><ul class="simple">
+<li><p>If the unsubscription is successful, returns a success message with a 201 status code.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.ad_controller.waitingList">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.ad_controller.</span></span><span class="sig-name descname"><span class="pre">waitingList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.ad_controller.waitingList" title="Link to this definition">¶</a></dt>
+<dd><p>Add the currently logged-in user to the waiting list of a specific ad.</p>
+<p>This endpoint allows the user to join the waiting list for a tutoring or study-group
+announcement if they are unable to enroll directly due to the ad being full.</p>
+<p>Function used from services: create_waitingUser()</p>
+<p>Returns:
+- JSON response containing a success message and HTTP status code 201 if successful.
+- JSON response containing an error message and corresponding HTTP status code if not.</p>
+<p>Error Messages:
+- 409: “Sei già iscritto a questo annuncio. Non puoi iscriverti alla lista d’attesa se sei già un partecipante.”
+- 403: “Il creatore dell’annuncio non può iscriversi come partecipante. Non è possibile aggiungersi alla propria lista d’attesa.”
+- 404: “Sei già iscritto alla waiting list di questo annuncio. Non puoi iscriverti più di una volta.”</p>
+</dd></dl>
+
+</section>
+<section id="module-app.controllers.user_controller">
+<span id="user-controller"></span><h2>User controller<a class="headerlink" href="#module-app.controllers.user_controller" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.user_controller.delete_profile">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.user_controller.</span></span><span class="sig-name descname"><span class="pre">delete_profile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.user_controller.delete_profile" title="Link to this definition">¶</a></dt>
+<dd><p>Route to delete the user’s profile and associated data.</p>
+<p>Function used from services: authenticate_user()</p>
+<p>Deletes the profile and associated data of the authenticated user.
+Requires the user to be authenticated and makes a DELETE request.
+Returns a success message if the deletion is successful,
+otherwise returns an error message if the user is not found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A JSON response indicating success or error message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.user_controller.loggedinUser">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.user_controller.</span></span><span class="sig-name descname"><span class="pre">loggedinUser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.user_controller.loggedinUser" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the email of the currently logged-in user.</p>
+<p>This endpoint returns the email of the user currently logged in. It extracts
+the email from the session and returns it in a JSON response.</p>
+<p>Returns:
+- JSON response containing the email of the logged-in user and HTTP status code 200.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.user_controller.login">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.user_controller.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.user_controller.login" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to log in a user.</p>
+<p>Function used from services: authenticate_user()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><dl class="simple">
+<dt>A tuple containing a JSON response with:</dt><dd><ul>
+<li><p>A success message if the user is logged in successfully along with the corresponding HTTP status code (200).</p></li>
+<li><p>An error message if the login credentials are incorrect, with HTTP status code 401 (Unauthorized Access).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.user_controller.logout">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.user_controller.</span></span><span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.user_controller.logout" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to log out a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing a JSON response with a success message indicating that the user has been logged out successfully, along with the corresponding HTTP status code 200.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.user_controller.profile">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.user_controller.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.user_controller.profile" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve and display the profile of a currently logged-in user.</p>
+<p>This function first attempts to identify the user through a session key that should contain
+the user’s email. It checks if the user is logged in by verifying the presence of this email
+in the session. If the email is not found, indicating no active session or login, it returns an
+error message stating the user is not logged in, along with an HTTP status code 401 (Unauthorized Access).</p>
+<p>If a user email is present in the session, the function then attempts to retrieve the complete user profile
+using a helper function <cite>extract_user</cite>.
+If the helper function returns a 404 error, it signifies that the user could not be found in the database,
+and the function returns a corresponding error message and HTTP status code 404 (Not Found).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A tuple containing a JSON response and an HTTP status code:</dt><dd><ul class="simple">
+<li><p>({“error”: “User not logged in”}, 401) if no user email is found in the session.</p></li>
+<li><p>({“error”: “User not found”}, 404) if no user profile could be retrieved.</p></li>
+<li><p>(profile, 200) containing the user’s profile data if successfully retrieved.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.user_controller.signup">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.user_controller.</span></span><span class="sig-name descname"><span class="pre">signup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.user_controller.signup" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to sign up a new user.</p>
+<p>Function used from services: authenticate_user() and create_user()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><dl class="simple">
+<dt>A tuple containing a JSON response with:</dt><dd><ul>
+<li><p>An error message if the email already exists, with HTTP status code 409 (Conflict).</p></li>
+<li><p>A success message if the user is created successfully, along with the corresponding HTTP status code 201 (Created).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.controllers.book_controller">
+<span id="book-controller"></span><h2>Book controller<a class="headerlink" href="#module-app.controllers.book_controller" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.book_controller.delete_ad">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.book_controller.</span></span><span class="sig-name descname"><span class="pre">delete_ad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.book_controller.delete_ad" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to delete an announcement posted by the logged-in user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ad_id</strong> (<em>int</em>) – ID of the announcement to be deleted.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Success or error message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>json</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.book_controller.get_bookShopannouncements">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.book_controller.</span></span><span class="sig-name descname"><span class="pre">get_bookShopannouncements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.book_controller.get_bookShopannouncements" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve book-shop announcements.</p>
+<p>Function used from services: get_bookShop()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of book-shop announcements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.book_controller.get_notificateBook">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.book_controller.</span></span><span class="sig-name descname"><span class="pre">get_notificateBook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.book_controller.get_notificateBook" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to handle notification for a book.</p>
+<p>This endpoint receives a POST request containing JSON data with information
+about the book. It retrieves the logged-in user’s email from
+the session and calls the notification_book function to create a notification
+for the book.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing a JSON response with a success message and the HTTP status code 200.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.book_controller.get_personalBook">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.book_controller.</span></span><span class="sig-name descname"><span class="pre">get_personalBook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.book_controller.get_personalBook" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve the logged-in user’s lists of books for sale.</p>
+<p>Function used from services: get_mypersonalBook()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of personal book-shop announcements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.book_controller.get_personalBookSold">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.book_controller.</span></span><span class="sig-name descname"><span class="pre">get_personalBookSold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.book_controller.get_personalBookSold" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to retrieve listings of books sold from the logged-in user.</p>
+<p>Function used from services: get_mypersonalBook()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of personal book-sold announcements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>list</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.book_controller.get_soldBook">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.book_controller.</span></span><span class="sig-name descname"><span class="pre">get_soldBook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.book_controller.get_soldBook" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to change the status of a book to sold.</p>
+<p>Function used from services: changeBookStatus()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing a JSON response with a success message and the HTTP status code 200.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.controllers.book_controller.new_book">
+<span class="sig-prename descclassname"><span class="pre">app.controllers.book_controller.</span></span><span class="sig-name descname"><span class="pre">new_book</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.controllers.book_controller.new_book" title="Link to this definition">¶</a></dt>
+<dd><p>Endpoint to create a new book advertisement.</p>
+<p>Function used from services: create_book()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing a JSON response with a success message and the HTTP status code 201.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Unilink</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controllers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-app.controllers.ad_controller">Ad controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-app.controllers.user_controller">User controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-app.controllers.book_controller">Book controller</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.services.html">Services</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Unilink’s documentation!</a></li>
+      <li>Next: <a href="app.models.html" title="next chapter">Models</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Nada Mohamed & Alessia Rubini.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/app.controllers.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,115 @@
+stages:
+  - linting
+  - build
+  - testing
+  - docs
+  - pages_deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind
+
+
+lint_backend:
+  stage: linting
+  image: python:3.9
+  script:
+    - cd backend
+    - pip install flake8
+    - flake8 --exit-zero . --count
+
+lint_frontend:
+  stage: linting
+  image: node:latest
+  script:
+    - cd frontend
+    - npm install
+    - npm run lint --quiet || true
+
+
+build_backend:
+  stage: build
+  image:
+    name: docker/compose:latest
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    - cd backend
+    - docker-compose down
+    - docker-compose build
+
+build_frontend:
+  stage: build
+  image: node:latest
+  script:
+    - cd frontend
+    - npm install
+  only:
+    - branches
+
+
+testing_backend:
+  stage: testing
+  image:
+    name: docker/compose:latest
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    - cd backend
+    - docker-compose down
+    - docker-compose up --build -d
+    - sleep 15
+    - docker exec backend_web /bin/sh -c "coverage run -m pytest /code/tests -v && coverage report > ./tests/coverage.txt" 
+
+test_frontend:
+  stage: testing
+  image: cypress/browsers:latest
+  script:
+    - cd frontend
+    - npm install
+    - npm start & 
+    - npx wait-on http://localhost:3000  
+    - npx cypress run --spec "cypress/e2e/**/*.js"
+  only:
+    - branches
+
+
+generate_backend_docs:
+  stage: docs
+  image: python:3.9
+  script:
+    - cd backend
+    - pip install -r requirements.txt
+    - cd docs
+    - make html
+    - mkdir -p ../../public/backend
+    - cp -r build/html/* ../../public/backend/
+  artifacts:
+    paths:
+      - public
+
+generate_frontend_docs:
+  stage: docs
+  image: node:latest
+  script:
+    - cd frontend
+    - npm install react-styleguidist
+    - npx styleguidist build
+    - mkdir -p ../public/frontend
+    - cp -r styleguide/* ../public/frontend/
+  artifacts:
+    paths:
+      - public
+
+
+pages:
+  stage: pages_deploy
+  script:
+    - mkdir -p public
+    - echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Documentation</title></head><body><h1>Unilink Documentation</h1><ul><li><a href="frontend/index.html">Frontend Documentation</a></li><li><a href="backend/index.html">Backend Documentation</a></li></ul></body></html>' > public/index.html
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

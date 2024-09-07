@@ -1,0 +1,31 @@
+Name                                                         Stmts   Miss  Cover
+--------------------------------------------------------------------------------
+app/__init__.py                                                 25      1    96%
+app/config.py                                                   17      0   100%
+app/controllers/__init__.py                                      3      0   100%
+app/controllers/ad_controller.py                               131     31    76%
+app/controllers/book_controller.py                              47      2    96%
+app/controllers/user_controller.py                              49     14    71%
+app/models/__init__.py                                           3      0   100%
+app/models/ad.py                                                55      5    91%
+app/models/base.py                                               2      0   100%
+app/models/book.py                                              10      0   100%
+app/models/user.py                                              13      0   100%
+app/services/__init__.py                                         3      0   100%
+app/services/ad_service.py                                     167     37    78%
+app/services/book_service.py                                    69      1    99%
+app/services/user_service.py                                    72     43    40%
+tests/ad/test_ad_deletion.py                                    72      0   100%
+tests/ad/test_ad_publication.py                                 40      0   100%
+tests/ad/test_enrollment_unsubscribe_personalMeeting.py         64      0   100%
+tests/ad/test_notification.py                                   75      0   100%
+tests/ad/test_personal_ad_visualization.py                      36      2    94%
+tests/ad/test_study_group_visualization.py                      32      0   100%
+tests/ad/test_tutoring_visualization.py                         31      0   100%
+tests/book/test_bookPublication__soldBook_ notification.py      63      0   100%
+tests/book/test_bookShop_visualization.py                       30      0   100%
+tests/book/test_book_deletion.py                                52      0   100%
+tests/book/test_personalBook_personalBookSold.py                35      0   100%
+tests/user/test_user_authentication.py                          48      0   100%
+--------------------------------------------------------------------------------
+TOTAL                                                         1244    136    89%
